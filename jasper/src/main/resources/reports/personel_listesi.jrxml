@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="personel" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="22aea0d8-9f6b-4cf1-be58-b001dcbb7930">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (3)"/>
+	<field name="isim" class="java.lang.String"/>
+	<field name="soyisim" class="java.lang.String"/>
+	<field name="departman" class="java.lang.String"/>
+	<field name="maas" class="java.lang.Double"/>
+	<group name="isim">
+		<groupExpression><![CDATA[$F{isim}]]></groupExpression>
+	</group>
+	<group name="soyisim">
+		<groupExpression><![CDATA[$F{soyisim}]]></groupExpression>
+	</group>
+	<detail>
+		<band height="70" splitType="Stretch">
+			<textField>
+				<reportElement positionType="Float" x="0" y="30" width="180" height="30" uuid="9b4535d4-022f-4912-9ad2-c3c8cb28e7aa"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{isim}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="30" width="330" height="30" uuid="69e6bcf9-430f-42a2-9322-92f42d226da6"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{soyisim}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
