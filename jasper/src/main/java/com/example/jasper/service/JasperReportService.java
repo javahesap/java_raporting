@@ -41,6 +41,7 @@ public class JasperReportService {
 
             // PDF olarak dışa aktar
             return JasperExportManager.exportReportToPdf(jasperPrint);
+          
 
         } catch (Exception e) {
             throw new RuntimeException("Rapor oluşturulurken bir hata oluştu.", e);

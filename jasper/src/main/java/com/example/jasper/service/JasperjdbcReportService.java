@@ -1,0 +1,55 @@
+package com.example.jasper.service;
+import net.sf.jasperreports.engine.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
+
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
+
+@Service
+public class JasperjdbcReportService {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public byte[] createPersonelReport() {
+        try {
+            // JDBC bağlantısı kurma
+            String url = "jdbc:mariadb://127.0.0.1:3306/contact";
+            String username = "root";
+            String password = "";
+            
+            Connection connection = DriverManager.getConnection(url, username, password);
+
+            // SQL sorgusunu çalıştırma
+            String query = "SELECT * FROM personel";
+            ResultSet resultSet = connection.createStatement().executeQuery(query);
+
+            // JasperReports için veri kaynağı oluşturma
+            JRResultSetDataSource dataSource = new JRResultSetDataSource(resultSet);
+
+            // Şablon dosyasını yükle
+            InputStream reportStream = getClass().getResourceAsStream("/reports/personel_listesijdbc.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
+
+            // Parametreler (eğer varsa)
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("REPORT_TITLE", "Personel Raporu");
+
+            // Raporu doldur
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            // PDF olarak dışa aktar
+            return JasperExportManager.exportReportToPdf(jasperPrint);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Rapor oluşturulurken bir hata oluştu.", e);
+        }
+    }
+}
