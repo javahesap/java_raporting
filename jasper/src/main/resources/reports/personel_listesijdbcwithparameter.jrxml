@@ -37,7 +37,22 @@
 		<band height="61" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement positionType="Float" x="0" y="30" width="180" height="30" uuid="76d6dff1-4243-4684-abb1-4220fbee6b49"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{isim}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="30" width="330" height="30" uuid="7452f705-6e1d-4ff2-8b35-17c85e560aa4"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{soyisim}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>
