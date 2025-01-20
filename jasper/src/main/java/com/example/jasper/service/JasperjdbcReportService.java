@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -58,4 +59,49 @@ public class JasperjdbcReportService {
 			throw new RuntimeException("Rapor oluşturulurken bir hata oluştu.", e);
 		}
 	}
+	
+	
+	
+	
+	public byte[] createparameterPersonelReport(String isim) {
+        try {
+    
+            
+ 
+
+            // Parametreli SQL sorgusu
+            String query = "SELECT * FROM personel WHERE isim = ?";
+            PreparedStatement preparedStatement = getConnect().prepareStatement(query);
+            preparedStatement.setString(1, isim);  // "isim" parametresini set ediyoruz.
+
+            // Sorguyu çalıştırma
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // JasperReports için veri kaynağı oluşturma
+            JRResultSetDataSource dataSource = new JRResultSetDataSource(resultSet);
+
+            // Şablon dosyasını yükle
+            InputStream reportStream = getClass().getResourceAsStream("/reports/personel_listesijdbcwithparameter.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
+
+            // Parametreleri rapora ilet
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("isim", isim);  // "isim" parametresini rapora gönderiyoruz.
+
+            // Raporu doldur
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            // PDF olarak dışa aktar
+            return JasperExportManager.exportReportToPdf(jasperPrint);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Rapor oluşturulurken bir hata oluştu.", e);
+        }
+    }
+	
+	
+	
+	
+	
+	
 }

@@ -47,6 +47,7 @@ public class JasperReportService {
             throw new RuntimeException("Rapor oluşturulurken bir hata oluştu.", e);
         }
     }
+
 }
 
 

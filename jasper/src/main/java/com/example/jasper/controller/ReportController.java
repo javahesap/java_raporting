@@ -54,11 +54,11 @@ public class ReportController {
     
     
     
-    /*// Parametreli SQL raporu döndüren endpoint
-    @GetMapping("/generate-personel-report")
+ // Parametreli SQL raporu döndüren endpoint
+    @GetMapping("/generate-personel-report-parametre")
     public ResponseEntity<byte[]> generatePersonelReport(@RequestParam String isim) throws IOException {
         // JasperReportService'yi kullanarak parametreli raporu oluştur
-        byte[] reportBytes = jasperReportService.createPersonelparametreliReport(isim);
+        byte[] reportBytes = jasperjdbcReportService.createparameterPersonelReport(isim);
 
         // Raporu PDF formatında kullanıcıya sun
         return ResponseEntity.ok()
@@ -66,8 +66,6 @@ public class ReportController {
                 .header("Content-Disposition", "inline; filename=personel_raporu.pdf")
                 .body(reportBytes);
     }
-    */
-    
     
 }
 
